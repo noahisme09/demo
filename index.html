@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng thời tiết</title>
+    <link rel="stylesheet" href="head.css" />
+</head>
+
+<body>
+    <h1>Ứng dụng Thời Tiết</h1>
+    <div>
+        <input type="text" id="city" placeholder="Nhập tên thành phố">
+        <button onclick="getWeather()">Kiểm tra thời tiết</button>
+    </div>
+    <div class="weather" id="weatherInfo"></div>
+
+    <script>
+        async function getWeather() {
+            const city = document.getElementById('city').value;
+            const apiKey = '53fbf527d52d4d773e828243b90c1f8e'; // Thay thế bằng API key của bạn
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
+            const data = await response.json();
+
+            if (response.status == 200) {
+                document.getElementById('weatherInfo').innerHTML = `
+                    <h2>Thời tiết tại ${data.name}</h2>
+                    <p>Nhiệt độ: ${data.main.temp}°C</p>
+                    <p>Trạng thái: ${data.weather[0].description}</p>
+                `;
+            } else {
+                document.getElementById('weatherInfo').innerHTML = `<p>Không tìm thấy thành phố. Vui lòng thử lại.</p>`;
+            }
+        }
+    </script>
+</body>
+
+<footer>
+    <p>Được tạo bởi: <strong>Nguyễn Kim Vũ</strong></p>
+    <p style="text-align: center;"><strong>Đặng Chiến Hồng Quang</strong></p>
+    <p>Email: <a href="mailto:kimvumm57@gmail.com">kimvumm57@gmail.com</a></p>
+    <p>Facebook: <a href="facebook.com/kimvuu0109/">Kim Vu</a></p>
+    <p>&copy; 2024 - Ứng dụng Thời Tiết</p>
+    <link rel="stylesheet" href="body.css" />
+</footer>
+</html>
